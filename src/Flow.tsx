@@ -31,6 +31,10 @@ const ModelNode = (props: NodeProps<DbModel>) => {
 }
 
 
+const downloadFlow = (models: DbModel[], connections: {source: string, target: string}[]) => {
+    
+}
+
 const nodeTypes = {model: ModelNode}
 
 const Flow = () => {
@@ -101,6 +105,14 @@ const Flow = () => {
         setNodes(nodesAfter)
     }
 
+    const onDownload = () => {
+
+        return downloadFlow(nodes.map(node => node.data), edges.map(edge => ({source: edge.source, target: edge.target})))
+        
+
+
+    }
+
     return <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', padding: '40px'}}>
         {mode === 'add' && <ModelForm onSubmit={addNode} />}
         {mode === 'edit' && <div style={{display: 'flex', flexDirection: 'column'}}>
@@ -118,6 +130,8 @@ const Flow = () => {
             {<span style={{backgroundColor: '#eeeeee', color: 'orange', borderRadius: 2, padding: '3px', margin: '5px', opacity: errorLine ? 100 : 0, transition: 'all 0.2s linear'}} >
                 {errorLine && errorLine}
             </span>}
+
+            <button onClick={onDownload} >Download Flow!</button>
 
             <div style={{height: '500px', width: '500px', marginTop: '15px', marginLeft: '20px'}}>
                 <ReactFlow 
